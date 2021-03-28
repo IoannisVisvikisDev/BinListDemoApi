@@ -1,0 +1,2 @@
+create table if not exists card_issuing_country (iso_code VARCHAR(2) PRIMARY KEY, clearing_cost_usd  VARCHAR(500) NOT NULL);
+create table if not exists registered_user (email VARCHAR(150) PRIMARY KEY, username  VARCHAR(500) NOT NULL, password VARCHAR(500) NOT NULL);
