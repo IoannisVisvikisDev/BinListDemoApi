@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClientException;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
@@ -35,13 +36,17 @@ public class BinListApiController {
     @PostMapping
     public MyResponse callBinListAndRespond(@Valid @RequestBody MyRequestBody requestBody){
         String binNumberToSend = requestBody.getCardNumber().substring(0, 7);
-        ResponseEntity<BinListResponseModel> binListResponseEntity =  binListService.callBinList(binNumberToSend);
-//        if (binListResponseEntity == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        BinListResponseModel binListResponseEntity = null;
+        try {
+        	binListResponseEntity =  binListService.callBinList(binNumberToSend);
+        }
+        catch (WebClientException ex) {
+        	throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage());
+		}
 
         //populate my response
-        BinListResponseModel binListResponseBody = binListResponseEntity.getBody();
-        LOG.info(binListResponseBody.toString());
-        String responseCoutryIsoCode = binListResponseBody.getCountry().getAlpha2();
+        LOG.info(binListResponseEntity.toString());
+        String responseCoutryIsoCode = binListResponseEntity.getCountry().getAlpha2();
         CardIssuingCountry country;
         //query H2 database for any country entry having this iso code
         try{
