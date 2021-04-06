@@ -27,14 +27,22 @@ public class IssuingCountriesService {
         return countriesRepository.findById(isoCode).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public void createCardIssuingCountry(CardIssuingCountry countryToAdd){
-        countriesRepository.save(countryToAdd);
+    public CardIssuingCountry createCardIssuingCountry(CardIssuingCountry countryToAdd){
+        try{
+            getCardIssuingCountry(countryToAdd.getIsoCode()); //will throw NOT_FOUND if country not present
+            //if a NOT_FOUND is not thrown, the entry already exists. Show conflict
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        catch (ResponseStatusException rse){
+            if(!(rse.getStatus() == HttpStatus.NOT_FOUND)) throw rse; //something other than not found went wrong. Throw and investigate
+        }
+        return countriesRepository.save(countryToAdd);
     }
 
 
-    public void updateCardIssuingCountry(CardIssuingCountry countryToAdd){
+    public CardIssuingCountry updateCardIssuingCountry(CardIssuingCountry countryToAdd){
         getCardIssuingCountry(countryToAdd.getIsoCode()); //make sure what was requested is present, or throw 404
-        countriesRepository.save(countryToAdd);
+        return countriesRepository.save(countryToAdd);
     }
 
     public void deleteCardIssuingCountry(String countryToDeleteIsoCode){

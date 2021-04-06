@@ -19,11 +19,9 @@ public class AddCountryRequest {
 	}
 
 	public AddCountryRequest() {
-		super();
 	}
 
 	public AddCountryRequest(@NotEmpty CardIssuingCountry country) {
-		super();
 		this.country = country;
 	}
 

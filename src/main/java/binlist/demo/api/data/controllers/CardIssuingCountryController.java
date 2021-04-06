@@ -20,13 +20,13 @@ public final class CardIssuingCountryController {
 
 
     @PostMapping
-    public void addCountry(@Valid @RequestBody CardIssuingCountry countryToAdd){
-        issuingCountriesService.createCardIssuingCountry(countryToAdd);
+    public CardIssuingCountry addCountry(@Valid @RequestBody CardIssuingCountry countryToAdd){
+        return issuingCountriesService.createCardIssuingCountry(countryToAdd);
     }
 
     @PutMapping
-    public void updateCountry(@Valid @RequestBody CardIssuingCountry countryToAdd){
-        issuingCountriesService.updateCardIssuingCountry(countryToAdd);
+    public CardIssuingCountry updateCountry(@Valid @RequestBody CardIssuingCountry countryToAdd){
+        return issuingCountriesService.updateCardIssuingCountry(countryToAdd);
     }
 
     @GetMapping("/{countryIsoCode}")
