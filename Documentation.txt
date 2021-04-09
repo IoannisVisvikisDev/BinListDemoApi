@@ -109,6 +109,10 @@ Payload :
 
 Response
 200 OK
+Payload:{
+    "isoCode": "CA",
+    "clearingCostUSD": "2.5"
+}
 
 
 
@@ -131,6 +135,10 @@ Payload :
 
 Response
 200 OK
+Payload:{
+    "isoCode": "GR",
+    "clearingCostUSD": "7.5"
+}
 
 
 
@@ -169,7 +177,7 @@ Content-Type : application/json
 
 Payload : {"card_number":"XXXXXXXXXXXXXXX"} 
 
-* No empty spaces between the card number's digits, or else a 404 not found will be returned						  
+* No empty spaces between the card number's digits, not less than 6 digits or else a 404 not found will be returned						  
 **The REST api will send a GET request to https://lookup.binlist.net/XXXXXX using the first 6 digits of the credit card's number. 
 - If BinList has the issuing country information, then a lookup in the H2 database will be made for that country's ISO code. If the entry exists, then the stored issuing country's clearing cost (USD) will be returned. If the entry does not exist in H2, the default 10 value will be returned. 
 - If BinList does not have the information about the issuing country, a 404 not found will be returned
