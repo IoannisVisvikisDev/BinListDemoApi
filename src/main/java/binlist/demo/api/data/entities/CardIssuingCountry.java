@@ -1,16 +1,14 @@
 package binlist.demo.api.data.entities;
 
-import lombok.Builder;
-import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
-@Data
-@Builder
+
 @Entity
 @Table(name="card_issuing_country")
 public class CardIssuingCountry {
@@ -18,6 +16,7 @@ public class CardIssuingCountry {
 
     @Id
     @NotEmpty
+    @Size(min=2, max=2)
     @Column(name = "iso_code")
     private String isoCode;
 
@@ -72,4 +71,5 @@ public class CardIssuingCountry {
                 ", clearingCostUSD=" + clearingCostUSD +
                 '}';
     }
+
 }

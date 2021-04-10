@@ -2,10 +2,8 @@ package binlist.demo.api.web.models;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.management.RuntimeErrorException;
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotBlank;
 
 public class MyRequestBody {
@@ -20,8 +18,13 @@ public class MyRequestBody {
     }
 
     public void setCardNumber(String cardNumber) {
-        if(cardNumber.length() < 6) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid card number");
         this.cardNumber = cardNumber;
+    }
+
+
+    @AssertTrue(message = "Bad request")
+    private boolean isAssertTrue(){
+        return cardNumber.length() > 6;
     }
 
     public MyRequestBody(String cardNumber) {

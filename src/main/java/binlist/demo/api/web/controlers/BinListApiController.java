@@ -34,7 +34,7 @@ public class BinListApiController {
 
 
     @PostMapping
-    public MyResponse callBinListAndRespond(@Valid @RequestBody MyRequestBody requestBody){
+    public MyResponse callBinListAndRespond(@RequestBody @Valid MyRequestBody requestBody){
         String binNumberToSend = requestBody.getCardNumber().substring(0, 7);
         BinListResponseModel binListResponseEntity = null;
         try {

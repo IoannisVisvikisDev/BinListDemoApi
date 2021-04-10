@@ -1,12 +1,14 @@
 package binlist.demo.api.data.models;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 
 import binlist.demo.api.data.entities.CardIssuingCountry;
 
 public class AddCountryRequest {
 	
-	@NotEmpty
+	@NotNull
 	private CardIssuingCountry country;
 
 
@@ -24,6 +26,7 @@ public class AddCountryRequest {
 	public AddCountryRequest(@NotEmpty CardIssuingCountry country) {
 		this.country = country;
 	}
+
 
 	@Override
 	public int hashCode() {
